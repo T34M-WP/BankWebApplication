@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewData["Title"] = "Transaction Page";
+}
+
+
+<div>
+    <div class="container bg-dark text-white p-5 shadow-lg" style="border-radius: 15px;">
+    <h1>Welcome: @ViewBag.User.Username</h1>
+    <p>Your Balance: @String.Format("{0:0.00}", ViewBag.User.Balance) THB</p>
+
+
+    </div>
+
+    <div class="container  p-3 my-3 shadow-lg " style="border-radius: 15px;">
+
+        <div class="container">
+            <div class="row row-cols-xl-3 row-cols-sm-2">
+                <div class="col">
+
+                    <h4>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Transaction" asp-action="Deposit">
+                            <div class="p-3 mx-5 text-center text-black">
+                                <i class="fa-solid fa-piggy-bank fa-lg"></i><br>
+                                Deposit
+                            </div>
+                        </a>
+                    </h4>
+
+                </div>
+                <div class="col">
+                    
+
+                    <h4>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Transaction" asp-action="Withdraw">
+                            <div class="p-3 mx-5 text-center text-black">
+                                <i class="fa-solid fa-hand-holding-dollar fa-lg"></i><br>
+                                Withdraw
+                            </div>
+                        </a>
+                    </h4>
+
+                </div>
+                <div class="col">
+                    
+
+
+                    <h4>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Transaction" asp-action="Transfer">
+                            <div class="p-3 mx-5 text-center text-black">
+                                <i class="fa-solid fa-money-bill-transfer fa-lg"></i><br>
+                                Transfer
+                            </div>
+                        </a>
+                    </h4>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row-cols-2 d-flex">
+        <div class="col-6 me-2">
+            [Transfer Menu]
+            <div class="container-fluid  p-3 my-3  shadow-lg " style="border-radius: 15px;">
+                
+                <div class="container-fluid">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>To</th>
+                                <th>Date Time</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var transaction in ViewBag.UserTransactions)
+                            {
+                                @if (transaction.Action == "Withdraw" || (transaction.Action == "Transfer" && transaction.From == ViewBag.User.Username))
+                                {
+                                    <tr>
+                                        <td>@transaction.Action</td>
+                                        <td>@transaction.From</td>
+                                        <td>@transaction.DateTime</td>
+                                        <td><span style="color: red;">- @String.Format("{0:0.00}", transaction.Amount)</span></td>
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+
+                
+
+            </div>
+        </div>
+        <div class="col-6 me-2">
+            [Receive Menu]
+            <div class="container  p-3 my-3  shadow-lg " style="border-radius: 15px;">
+                
+                <div class="container-fluid">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>From</th>
+                                <th>Date Time</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var transaction in ViewBag.UserTransactions)
+                            {
+                                @if (transaction.Action == "Deposit" || transaction.To == ViewBag.User.Username)
+                                {
+                                <tr>
+                                    <td>@transaction.Action</td>
+                                    <td>@transaction.From</td>
+                                    <td>@transaction.DateTime</td>
+                                    <td><span style="color: green;">+ @String.Format("{0:0.00}", transaction.Amount)</span></td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+

@@ -1,0 +1,12 @@
+﻿@model BankWebApplication.Models.User
+@{
+    ViewData["Title"] = "Withdraw Page";
+}
+
+<form asp-action="Withdraw" method="post">
+    <div class="form-group">
+        <label for="amount">Amount:</label>
+        <input type="number" class="form-control" id="amount" name="amount" required>
+    </div>
+    <button type="submit" class="btn btn-primary mt-5">Withdraw</button>
+</form>

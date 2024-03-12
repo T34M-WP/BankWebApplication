@@ -1,0 +1,12 @@
+﻿@model BankWebApplication.Models.Transaction
+@{
+    ViewData["Title"] = "Deposit Page";
+}
+
+<form asp-action="Deposit" method="post">
+    <div class="form-group">
+        <label for="amount">Amount:</label>
+        <input type="number" class="form-control" id="amount" name="amount" required>
+    </div>
+    <button type="submit" class="btn btn-primary mt-5">Deposit</button>
+</form>
